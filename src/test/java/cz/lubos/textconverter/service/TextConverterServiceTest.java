@@ -34,5 +34,4 @@ public class TextConverterServiceTest {
 
         assertEquals(".NjaF iM ej", outputText);
     }
-
 }

@@ -1,10 +1,9 @@
 package cz.lubos.textconverter.controller;
 
 import static org.hamcrest.Matchers.is;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -37,12 +36,14 @@ public class TextConverterControllerTest {
 
     @Test
     public void shouldConvertTextWhenCorrectInput() throws Exception {
-        final String inputText = "český text";
+        final String inputText = "Ahoj, jak se máš?";
+
         mockMvc.perform(get("/rest/convert-text?inputText=" + inputText))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(jsonPath("$.inputText", is(inputText)));
+                .andExpect(jsonPath("$.inputText", is(inputText)))
+                .andExpect(jsonPath("$.outputText", is("?šÁm es kaj ,jOha")));
     }
 
 }

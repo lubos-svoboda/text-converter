@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TextConverterService {
 
-    private final static String VOWELS = "aeiouáéíóúů";
+    private final static String VOWELS_CZ = "aeiouáéěíóúů";
 
     /**
      * Transformaci provede tak, že textu otočí pořadí písmen (tedy přečte ho odzadu) s tím, že:
@@ -26,19 +26,15 @@ public class TextConverterService {
         if (text == null) {
             return null;
         }
+        text = text.replaceAll("\\s+", " ");
+        StringBuilder sb = new StringBuilder(text.toLowerCase()).reverse();
 
-        String t = text.replaceAll("\\s+", " ");
-        StringBuilder sb = new StringBuilder(t);
-
-        for (int i = 0; i < t.length(); i++) {
-            char ch = t.charAt(i);
-            if (VOWELS.indexOf(ch) > 0) {
-                sb.replace(i, i +1, String.valueOf(ch).toUpperCase());
-            } else {
-                sb.replace(i, i +1, String.valueOf(ch).toLowerCase());
+        for (int i = 0; i < text.length(); i++) {
+            char ch = text.charAt(i);
+            if (VOWELS_CZ.indexOf(ch) >= 0) {
+                sb.replace(i, i +1, String.valueOf(sb.charAt(i)).toUpperCase());
             }
         }
-
-        return sb.reverse().toString();
+        return sb.toString();
     }
 }
