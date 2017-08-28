@@ -18,8 +18,7 @@ public class TextConverterController {
     }
 
     @GetMapping("/convert-text")
-    public ConversionResponse convert(
-            @RequestParam String inputText) {
+    public ConversionResponse convert(@RequestParam String inputText) {
         String outputText = textConverterService.convertText(inputText);
 
         ConversionResponse response = new ConversionResponse();
